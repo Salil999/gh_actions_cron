@@ -1,0 +1,2 @@
+Requests==2.31.0
+sendgrid==6.11.0
