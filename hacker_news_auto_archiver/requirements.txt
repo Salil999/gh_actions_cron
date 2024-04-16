@@ -1,0 +1,2 @@
+Requests==2.31.0
+waybackpy==3.0.6

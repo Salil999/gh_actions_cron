@@ -1,0 +1,44 @@
+name: daily_friend_reminder
+
+on:
+    schedule:
+        - cron: '0 4 * * *'
+
+    workflow_dispatch:
+
+jobs:
+    run:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: 3.12
+
+            - name: Installing dependencies
+              run: |
+                  echo Running 'pip install -r daily_friend_reminder/requirements.txt'
+                  pip install -r daily_friend_reminder/requirements.txt
+
+            - name: Run python script
+              run: |
+                  echo Running 'python daily_friend_reminder/script.py'
+                  python daily_friend_reminder/script.py
+              env:
+                  ICLOUD_EMAIL: ${{ secrets.ICLOUD_EMAIL }}
+                  GMAIL_EMAIL: ${{ secrets.GMAIL_EMAIL }}
+                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+                  ZEROSHEETS_API_KEY: ${{ secrets.ZEROSHEETS_API_KEY }}
+
+            - name: Upload to repository
+              run: |
+                  date > daily_friend_reminder/last_run.txt
+                  git config user.name github-actions
+                  git config user.email github-actions@github.com
+                  git add .
+                  git commit -m "GitHub Actions Update"
+                  git push

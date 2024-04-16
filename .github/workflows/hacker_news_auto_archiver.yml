@@ -1,4 +1,4 @@
-name: run_cron
+name: hacker_news_auto_archiver
 
 on:
     schedule:
@@ -21,22 +21,17 @@ jobs:
 
             - name: Installing dependencies
               run: |
-                  echo Running 'pip install -r requirements.txt'
-                  pip install -r requirements.txt
+                  echo Running 'pip install -r hacker_news_auto_archiver/requirements.txt'
+                  pip install -r hacker_news_auto_archiver/requirements.txt
 
             - name: Run python script
               run: |
-                  echo Running 'python script.py'
-                  python script.py
-              env:
-                  ICLOUD_EMAIL: ${{ secrets.ICLOUD_EMAIL }}
-                  GMAIL_EMAIL: ${{ secrets.GMAIL_EMAIL }}
-                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-                  ZEROSHEETS_API_KEY: ${{ secrets.ZEROSHEETS_API_KEY }}
+                  echo Running 'python hacker_news_auto_archiver/script.py'
+                  python hacker_news_auto_archiver/script.py
 
             - name: Upload to repository
               run: |
-                  date > last_run.txt
+                  date > hacker_news_auto_archiver/last_run.txt
                   git config user.name github-actions
                   git config user.email github-actions@github.com
                   git add .
