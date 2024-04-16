@@ -2,7 +2,7 @@ name: hacker_news_auto_archiver
 
 on:
     schedule:
-        - cron: '0 4 * * *'
+        - cron: '*/15 * * * *'
 
     workflow_dispatch:
 
