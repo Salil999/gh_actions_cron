@@ -12,7 +12,8 @@ zero_sheets_api_key = os.environ.get('BUSINESS_ZEROSHEETS_API_KEY')
 # Create a session using the access keys and secret keys
 session = boto3.Session(
     aws_access_key_id=access_key,
-    aws_secret_access_key=secret_key
+    aws_secret_access_key=secret_key,
+    region_name='us-east-1'
 )
 
 # Create a DynamoDB client using the session
