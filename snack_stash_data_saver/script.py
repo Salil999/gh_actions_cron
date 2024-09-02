@@ -42,7 +42,7 @@ for item in google_sheets_data:
                 'left_over': {'S': item.get('Left Over', '')},
                 'amount_thrown': {'S': item.get('Amount Thrown', '')},
                 'insert_time': {'N': str(current_time)},
-                'expireAt': {'N': str(expire_time.timestamp())}
+                'expireAt': {'N': str(int(expire_time.timestamp()))}
             }
         )
         # Sleep for 0.5 seconds to avoid throttling
