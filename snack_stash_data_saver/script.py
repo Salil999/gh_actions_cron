@@ -46,5 +46,5 @@ for item in google_sheets_data:
             'expire_at': {'N': str(int(expire_time.timestamp()))}
         }
     )
-    # Sleep for 0.5 seconds to avoid throttling
-    time.sleep(0.5)
+    # Sleep for 0.25 seconds to avoid throttling
+    time.sleep(0.25)
