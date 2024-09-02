@@ -29,9 +29,9 @@ jobs:
                   echo Running 'python snack_stash_data_saver/script.py'
                   python snack_stash_data_saver/script.py
               env:
-                  BUSINESS_AWS_ACCESS_KEY_ID: ${{ secrets.BUSINESS_AWS_ACCESS_KEY_ID }}
-                  BUSINESS_AWS_SECRET_ACCESS_KEY: ${{ secrets.BUSINESS_AWS_SECRET_ACCESS_KEY }}
-                  BUSINESS_AWS_TABLE_NAME: ${{ secrets.BUSINESS_AWS_TABLE_NAME }}
+                  BUSINESS_AWS_ACCESS_KEY: ${{ secrets.BUSINESS_AWS_ACCESS_KEY }}
+                  BUSINESS_AWS_SECRET_KEY: ${{ secrets.BUSINESS_AWS_SECRET_KEY }}
+                  BUSINESS_DYNAMODB_TABLE_NAME: ${{ secrets.BUSINESS_DYNAMODB_TABLE_NAME }}
                   BUSINESS_ZEROSHEETS_API_KEY: ${{ secrets.BUSINESS_ZEROSHEETS_API_KEY }}
 
             - name: Upload to repository
