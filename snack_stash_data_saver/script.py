@@ -3,6 +3,7 @@ import boto3
 import requests
 import datetime
 import time
+import uuid
 
 access_key = os.environ.get('BUSINESS_AWS_ACCESS_KEY')
 secret_key = os.environ.get('BUSINESS_AWS_SECRET_KEY')
@@ -36,13 +37,14 @@ for item in google_sheets_data:
         dynamodb.put_item(
             TableName=table_name,
             Item={
+                'uuid': {'S': str(uuid.uuid4())},
                 'product_name': {'S': item.get('Product Name', '')},
                 'original_quantity': {'S': item.get('Original Quantity', '')},
                 'amount_put_into_machine': {'S': item.get('Amount Put Into Machine', '')},
                 'left_over': {'S': item.get('Left Over', '')},
                 'amount_thrown': {'S': item.get('Amount Thrown', '')},
                 'insert_time': {'N': str(current_time)},
-                'expireAt': {'N': str(int(expire_time.timestamp()))}
+                'expire_at': {'N': str(int(expire_time.timestamp()))}
             }
         )
         # Sleep for 0.5 seconds to avoid throttling
