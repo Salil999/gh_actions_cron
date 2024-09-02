@@ -9,7 +9,7 @@ from sendgrid.helpers.mail import Mail
 google_sheets_content = requests.get(
     "https://api.zerosheets.com/v1/ugz",
     headers={
-        "Authorization": "Bearer " + os.environ.get("ZEROSHEETS_API_KEY"),
+        "Authorization": "Bearer " + os.environ.get("PERSONAL_ZERO_SHEETS_API_KEY"),
     },
 )
 

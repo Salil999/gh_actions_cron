@@ -1,8 +1,8 @@
-name: daily_friend_reminder
+name: snack_stash_data_saver
 
 on:
     schedule:
-        - cron: '0 4 * * *'
+        - cron: '0 8 * * *'
 
     workflow_dispatch:
 
@@ -21,22 +21,22 @@ jobs:
 
             - name: Installing dependencies
               run: |
-                  echo Running 'pip install -r daily_friend_reminder/requirements.txt'
-                  pip install -r daily_friend_reminder/requirements.txt
+                  echo Running 'pip install -r snack_stash_data_saver/requirements.txt'
+                  pip install -r snack_stash_data_saver/requirements.txt
 
             - name: Run python script
               run: |
-                  echo Running 'python daily_friend_reminder/script.py'
-                  python daily_friend_reminder/script.py
+                  echo Running 'python snack_stash_data_saver/script.py'
+                  python snack_stash_data_saver/script.py
               env:
-                  ICLOUD_EMAIL: ${{ secrets.ICLOUD_EMAIL }}
-                  GMAIL_EMAIL: ${{ secrets.GMAIL_EMAIL }}
-                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-                  PERSONAL_ZERO_SHEETS_API_KEY: ${{ secrets.PERSONAL_ZERO_SHEETS_API_KEY }}
+                  BUSINESS_AWS_ACCESS_KEY_ID: ${{ secrets.BUSINESS_AWS_ACCESS_KEY_ID }}
+                  BUSINESS_AWS_SECRET_ACCESS_KEY: ${{ secrets.BUSINESS_AWS_SECRET_ACCESS_KEY }}
+                  BUSINESS_AWS_TABLE_NAME: ${{ secrets.BUSINESS_AWS_TABLE_NAME }}
+                  BUSINESS_ZEROSHEETS_API_KEY: ${{ secrets.BUSINESS_ZEROSHEETS_API_KEY }}
 
             - name: Upload to repository
               run: |
-                  date > daily_friend_reminder/last_run.txt
+                  date > snack_stash_data_saver/last_run.txt
                   git config user.name github-actions
                   git config user.email github-actions@github.com
                   git add .
