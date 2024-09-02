@@ -29,23 +29,22 @@ google_sheets_content = requests.get(
 google_sheets_data = google_sheets_content.json()
 
 for item in google_sheets_data:
-    for item in google_sheets_data:
-        # Expire time is set to 3 years from the current date
-        current_time = int(time.time())
-        current_date_time = datetime.datetime.fromtimestamp(current_time)
-        expire_time = current_date_time + datetime.timedelta(days = (365 * 3))
-        dynamodb.put_item(
-            TableName=table_name,
-            Item={
-                'uuid': {'S': str(uuid.uuid4())},
-                'product_name': {'S': item.get('Product Name', '')},
-                'original_quantity': {'S': item.get('Original Quantity', '')},
-                'amount_put_into_machine': {'S': item.get('Amount Put Into Machine', '')},
-                'left_over': {'S': item.get('Left Over', '')},
-                'amount_thrown': {'S': item.get('Amount Thrown', '')},
-                'insert_time': {'N': str(current_time)},
-                'expire_at': {'N': str(int(expire_time.timestamp()))}
-            }
-        )
-        # Sleep for 0.5 seconds to avoid throttling
-        time.sleep(0.5)
+    # Expire time is set to 3 years from the current date
+    current_time = int(time.time())
+    current_date_time = datetime.datetime.fromtimestamp(current_time)
+    expire_time = current_date_time + datetime.timedelta(days = (365 * 3))
+    dynamodb.put_item(
+        TableName=table_name,
+        Item={
+            'pk': {'S': str(uuid.uuid4())},
+            'product_name': {'S': item.get('Product Name', '')},
+            'original_quantity': {'S': item.get('Original Quantity', '')},
+            'amount_put_into_machine': {'S': item.get('Amount Put Into Machine', '')},
+            'left_over': {'S': item.get('Left Over', '')},
+            'amount_thrown': {'S': item.get('Amount Thrown', '')},
+            'insert_time': {'N': str(current_time)},
+            'expire_at': {'N': str(int(expire_time.timestamp()))}
+        }
+    )
+    # Sleep for 0.5 seconds to avoid throttling
+    time.sleep(0.5)
