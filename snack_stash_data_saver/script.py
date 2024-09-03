@@ -21,7 +21,7 @@ session = boto3.Session(
 dynamodb = session.client('dynamodb')
 
 google_sheets_content = requests.get(
-    "https://api.zerosheets.com/v1/zwb",
+    "https://api.zerosheets.com/v1/wjn",
     headers={
         "Authorization": "Bearer " + zero_sheets_api_key,
     },
