@@ -29,6 +29,8 @@ google_sheets_content = requests.get(
 google_sheets_data = google_sheets_content.json()
 
 for item in google_sheets_data:
+    if not item.get('Product Name', ''):
+        continue
     # Expire time is set to 3 years from the current date
     current_time = int(time.time())
     current_date_time = datetime.datetime.fromtimestamp(current_time)
@@ -38,10 +40,11 @@ for item in google_sheets_data:
         Item={
             'pk': {'S': str(uuid.uuid4())},
             'product_name': {'S': item.get('Product Name', '')},
-            'original_quantity': {'S': item.get('Original Quantity', '')},
+            'home_quantity': {'S': item.get('Home Quantity', '')},
             'amount_put_into_machine': {'S': item.get('Amount Put Into Machine', '')},
             'left_over': {'S': item.get('Left Over', '')},
             'amount_thrown': {'S': item.get('Amount Thrown', '')},
+            'machine_id': {'S': item.get('Machine ID', '')},
             'insert_time': {'N': str(current_time)},
             'expire_at': {'N': str(int(expire_time.timestamp()))}
         }
